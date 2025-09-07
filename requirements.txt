@@ -1,0 +1,37 @@
+# Web Framework & Server
+fastapi~=0.111.0
+uvicorn[standard]~=0.29.0
+
+# Pydantic (explicitly for clarity, used by FastAPI)
+pydantic~=2.7.1
+pydantic-settings~=2.3.0
+
+# Data Fetching
+yfinance~=0.2.38
+gnews~=0.3.0
+beautifulsoup4~=4.12.3
+
+# Machine Learning & AI
+prophet~=1.1.5 
+transformers~=4.41.2
+
+# Core ML/data libraries
+tensorflow==2.16.1
+numpy~=1.26.4
+scikit-learn~=1.5.0
+tf-keras~=2.16.0
+ml-dtypes==0.3.2
+tensorboard==2.16.2  
+protobuf==4.25.3
+seaborn~=0.12.2
+pandas~=2.1.4
+
+# LLM Integration
+google-generativeai~=0.5.4
+
+# Streamlit for UI
+streamlit~=1.35.0
+plotly~=5.20.0
+
+# Utilities
+python-dotenv~=1.0.1
