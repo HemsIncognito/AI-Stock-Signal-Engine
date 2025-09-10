@@ -1,6 +1,10 @@
 # finsight_api/routers/stocks.py
 
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, HTTPException, status, Security, Depends
+from fastapi.security import APIKeyHeader
+
+# Import API Key security scheme
+from finsight_api.config import settings
 
 # Import our Pydantic schemas
 from finsight_api.schema import AnalysisRequest, AnalysisResponse
@@ -11,13 +15,29 @@ from finsight_api.services.sentiment_analyzer import senti_analyzer
 from finsight_api.services.trends_forecaster import trend_forecaster
 from finsight_api.services.intelligence_service import intelligence
 
+# --- API Key Security ---
+API_KEY_NAME = "X-API-KEY"
+api_key_header = APIKeyHeader(name=API_KEY_NAME, auto_error=True)
+
+async def get_api_key(api_key: str = Security(api_key_header)):
+    """Checks if the provided API key is valid."""
+    if api_key == settings.FINSIGHT_API_KEY:
+        return api_key
+    else:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Could not validate credentials"
+        )
+# --- End Security ---
+
 # Create an API router
 router = APIRouter(
     prefix="/stocks",
     tags=["Stock Analysis"]
 )
 
-@router.post("/analyze", response_model=AnalysisResponse, status_code=status.HTTP_200_OK)
+# Define the stock analysis endpoint (with security dependency)
+@router.post("/analyze", response_model=AnalysisResponse,dependencies=[Depends(get_api_key)])
 async def analyze_stock(request: AnalysisRequest):
     """
     Receives a stock ticker, orchestrates the multi-pronged analysis,

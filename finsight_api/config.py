@@ -17,10 +17,10 @@ class Settings(BaseSettings):
     # It's critical for the insight generation module.
     GEMINI_API_KEY: str = "API_KEY_NOT_SET"
 
-    # --- Model Names ---
-    # Centralizing model names makes it easy to swap them out later.
-    SENTIMENT_MODEL: str = "yiyanghkust/finbert-tone"
-
+    # --- FinSight API Key ---
+    # The API key required to access the FinSight API endpoints.
+    FINSIGHT_API_KEY: str = "API_KEY_NOT_SET"
+    
     # --- Data Fetching Defaults ---
     # Default time periods for fetching historical data and news.
     DEFAULT_PRICE_HISTORY_PERIOD: str = "2y"
